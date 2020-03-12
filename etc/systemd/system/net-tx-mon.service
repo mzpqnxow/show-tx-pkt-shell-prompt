@@ -1,0 +1,14 @@
+[Unit]
+Description=Network Transmission Packet Counter Service
+After=network.target
+
+
+[Service]
+User=nobody
+Group=nogroup
+ExecStart=/usr/bin/net-tx-mon-daemon
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+

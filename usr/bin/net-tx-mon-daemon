@@ -1,0 +1,11 @@
+#!/bin/bash
+export TEMP_TX=/dev/shm/tx-tmp
+export DONE_TX=/dev/shm/tx-now
+export RAW_TX=/dev/shm/tx-raw
+export INTERFACE=eth0
+while [ 1 ]; do
+  sar -n DEV 1 1 > "${RAW_TX}"
+  grep -E "^Average: +${INTERFACE}" "${RAW_TX}" | awk '{print $4}' > "${TEMP_TX}"
+  cp "${TEMP_TX}" "${DONE_TX}"
+done
+
